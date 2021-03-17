@@ -1,24 +1,20 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
+import { fetchCities } from '../../redux'
 import { Table } from 'react-bootstrap'
 
+function AllCities({ citiesData, fetchCities }) {
 
-function AllCities() {
-
-    const [cityList, setCityList] = useState([]);
 
     useEffect(() => {
         fetchCities();
-    }, []);
+    });
 
-    const fetchCities = async () => {
-        const data = await fetch('https://gist.githubusercontent.com/pratikg117/7ce66c7ade26a94772111334e40b287b/raw/fd5d7109921ca7a461a19ae73bfb71c9696bd139/Assignment%2520Json');
-        const items = await data.json();
-        console.log(items);
-        setCityList(items);
-    }
-
-
-    return (
+    return citiesData.loading ? (
+        <h2>Loading...</h2>
+    ) : citiesData.error ? (
+        <h2>{citiesData.error}</h2>
+    ) : (
         <div class="container">
             <Table striped bordered hover size="sm">
                 <thead>
@@ -31,7 +27,7 @@ function AllCities() {
                 </thead>
                 <tbody>
                     {
-                        cityList.map(city => (
+                        citiesData.cities.map(city => (
                             <tr>
                                 <td>{city.City}</td>
                                 <td>{city.District}</td>
@@ -47,4 +43,15 @@ function AllCities() {
     )
 }
 
-export default AllCities
+const mapStateToProps = state => {
+    return {
+        citiesData: state.cities
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchCities: () => dispatch(fetchCities())
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(AllCities);
