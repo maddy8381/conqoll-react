@@ -5,6 +5,7 @@ import Header from './components/navigation/Header';
 import ShortlistedCities from './components/navigation/ShortlistedCities';
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import FetchData from './components/navigation/FetchData';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <div className="App">
         <Router>
           <Header />
+          <FetchData />
           <Switch>
             <Route path="/" exact component={AllCities} />
             <Route path="/all" exact component={AllCities} />

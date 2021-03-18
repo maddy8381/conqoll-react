@@ -1,33 +1,44 @@
-import { FETCH_CITIES_FAILURE, FETCH_CITIES_REQUEST, FETCH_CITIES_SUCCESS } from "./cityTypes"
+import { FETCH_CITIES, FETCH_DATA_FAILURE, FETCH_DATA_REQUEST, FETCH_DATA_SUCCESS, REMOVE_CITY, SHORTLIST_TOGGLE } from "./cityTypes"
 import axios from 'axios';
 
 export const fetchCitiesRequest = () => {
     return {
-        type: FETCH_CITIES_REQUEST
+        type: FETCH_DATA_REQUEST
     }
 }
 
 const fetchCitiesSuccess = cities => {
     return {
-        type: FETCH_CITIES_SUCCESS,
+        type: FETCH_DATA_SUCCESS,
         payload: cities
     }
 }
 
 const fetchCitiesFailure = error => {
     return {
-        type: FETCH_CITIES_FAILURE,
+        type: FETCH_DATA_FAILURE,
         payload: error
     }
 }
 
-export const fetchCities = () => {
+
+const addProperties = (cities) => {
+    let counter = 0;
+    for (const obj of cities) {
+        obj.isShortlisted = false;
+        obj.Id = counter++;
+    }
+}
+
+export const fetchData = () => {
     return (dispatch) => {
         dispatch(fetchCitiesRequest);
 
         axios.get('https://gist.githubusercontent.com/pratikg117/7ce66c7ade26a94772111334e40b287b/raw/fd5d7109921ca7a461a19ae73bfb71c9696bd139/Assignment%2520Json')
             .then(response => {
                 const cities = response.data
+                addProperties(cities);
+                console.log(cities);
                 dispatch(fetchCitiesSuccess(cities));
             })
             .catch(error => {
@@ -36,3 +47,23 @@ export const fetchCities = () => {
             })
     }
 }
+
+export const fetchCities = () => {
+    return {
+        type: FETCH_CITIES
+    }
+}
+
+export const toggleShortlist = (id) => {
+    return {
+        type: SHORTLIST_TOGGLE,
+        payload: id
+    }
+}
+
+export const removeCity = (id) => {
+    return {
+        type: REMOVE_CITY,
+        payload: id
+    };
+};
