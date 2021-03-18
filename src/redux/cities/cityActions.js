@@ -1,4 +1,4 @@
-import { FETCH_CITIES, FETCH_DATA_FAILURE, FETCH_DATA_REQUEST, FETCH_DATA_SUCCESS, REMOVE_CITY, SHORTLIST_TOGGLE } from "./cityTypes"
+import { FETCH_CITIES, FETCH_DATA_FAILURE, FETCH_DATA_REQUEST, FETCH_DATA_SUCCESS, REMOVE_CITY, REMOVE_SHORTLISTED_CITY, SHORTLIST_CITY } from "./cityTypes"
 import axios from 'axios';
 
 export const fetchCitiesRequest = () => {
@@ -54,13 +54,18 @@ export const fetchCities = () => {
     }
 }
 
-export const toggleShortlist = (id) => {
+export const shortlistCity = (id) => {
     return {
-        type: SHORTLIST_TOGGLE,
+        type: SHORTLIST_CITY,
         payload: id
     }
 }
-
+export const removeShortlistedCity = (id) => {
+    return {
+        type: REMOVE_SHORTLISTED_CITY,
+        payload: id
+    }
+}
 export const removeCity = (id) => {
     return {
         type: REMOVE_CITY,

@@ -1,4 +1,4 @@
-import { FETCH_CITIES, FETCH_DATA_REQUEST, FETCH_DATA_SUCCESS, FETCH_DATA_FAILURE, REMOVE_CITY, SHORTLIST_TOGGLE } from "./cityTypes"
+import { FETCH_CITIES, FETCH_DATA_REQUEST, FETCH_DATA_SUCCESS, FETCH_DATA_FAILURE, REMOVE_CITY, SHORTLIST_CITY, REMOVE_SHORTLISTED_CITY } from "./cityTypes"
 
 const initialState = {
     loading: false,
@@ -35,17 +35,29 @@ const reducer = (state = initialState, action) => {
                 error: ''
             };
 
-        case SHORTLIST_TOGGLE:
-            const cityIndex = [...state.cities].findIndex(
+        case SHORTLIST_CITY:
+            let cityIndex = [...state.cities].findIndex(
                 (city) => city.Id === action.payload
             );
-            const clonedCity = [...state.cities];
-            clonedCity[cityIndex].isShortlisted = !clonedCity[cityIndex].isShortlisted;
+            let clonedCity = [...state.cities];
+            clonedCity[cityIndex].isShortlisted = true;
 
             return {
                 ...state,
                 cities: clonedCity
             };
+
+        case REMOVE_SHORTLISTED_CITY:
+            let cityIndex1 = [...state.cities].findIndex(
+                (city) => city.Id === action.payload
+            );
+            let clonedCity1 = [...state.cities];
+            clonedCity1[cityIndex1].isShortlisted = false;
+
+            return {
+                ...state,
+                cities: clonedCity1
+            }
 
         case REMOVE_CITY:
             return {

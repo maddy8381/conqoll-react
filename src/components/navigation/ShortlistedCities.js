@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { fetchCities, toggleShortlist } from '../../redux'
+import { fetchCities, removeShortlistedCity } from '../../redux'
 import { Table } from 'react-bootstrap'
 
-function ShortlistedCities({ citiesData, fetchCities, toggleShortlist }) {
+function ShortlistedCities({ citiesData, fetchCities, removeShortlistedCity }) {
 
     useEffect(() => {
         fetchCities();
     }, [fetchCities]);
 
     const handleShortlist = (id) => {
-        toggleShortlist(id);
+        removeShortlistedCity(id);
     }
 
     return (
@@ -53,7 +53,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         fetchCities: () => dispatch(fetchCities()),
-        toggleShortlist: (id) => dispatch(toggleShortlist(id))
+        removeShortlistedCity: (id) => dispatch(removeShortlistedCity(id))
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ShortlistedCities);
