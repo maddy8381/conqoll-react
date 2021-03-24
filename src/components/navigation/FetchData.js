@@ -30,4 +30,6 @@ const mapDispatchToProps = dispatch => {
         fetchData: () => dispatch(fetchData())
     };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(FetchData);
+export default React.memo(
+    connect(mapStateToProps, mapDispatchToProps)(FetchData)
+)

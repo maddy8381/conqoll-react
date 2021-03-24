@@ -56,4 +56,6 @@ const mapDispatchToProps = dispatch => {
         removeShortlistedCity: (id) => dispatch(removeShortlistedCity(id))
     };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(ShortlistedCities);
+export default React.memo(
+    connect(mapStateToProps, mapDispatchToProps)(ShortlistedCities)
+)

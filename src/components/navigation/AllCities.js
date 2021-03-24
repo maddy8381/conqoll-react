@@ -18,6 +18,10 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Snackbar from '@material-ui/core/Snackbar';
+import SaveIcon from '@material-ui/icons/Save';
+import AddIcon from '@material-ui/icons/Add';
+import Zoom from '@material-ui/core/Zoom';
+import Fab from '@material-ui/core/Fab';
 
 const styles = (theme) => ({
     root: {
@@ -139,10 +143,14 @@ function AllCities({ citiesData, fetchCities, removeCity, shortlistCity, addCity
         <h2>{citiesData.error}</h2>
     ) : (
         <div className="container">
-
-            <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+            <br />
+            <Fab variant="extended" color="secondary" aria-label="add" className={classes.margin} onClick={handleClickOpen} style={{ float: 'right' }}>
+                <AddIcon />
                 Add City
-            </Button>
+            </Fab>
+            <br /><br />
+            <br /><br />
+
             <Table striped bordered hover size="sm">
                 <thead>
                     <tr>
@@ -224,9 +232,15 @@ function AllCities({ citiesData, fetchCities, removeCity, shortlistCity, addCity
                     </div>
                 </DialogContent>
                 <DialogActions>
-                    <Button autoFocus onClick={handleSubmit} color="primary">
-                        Save changes
-                </Button>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handleSubmit}
+                        className={classes.button}
+                        startIcon={<SaveIcon />}
+                    >
+                        Save
+                    </Button>
                 </DialogActions>
             </Dialog>
             <Snackbar
@@ -239,6 +253,8 @@ function AllCities({ citiesData, fetchCities, removeCity, shortlistCity, addCity
                 onClose={closeToastr}
                 message="City Added"
             />
+
+
         </div>
     )
 }
@@ -257,4 +273,6 @@ const mapDispatchToProps = dispatch => {
         addCity: (cityObj) => dispatch(addCity(cityObj))
     };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(AllCities);
+export default React.memo(
+    connect(mapStateToProps, mapDispatchToProps)(AllCities)
+)
