@@ -1,0 +1,24 @@
+.city-table {
+  table-layout: fixed;
+  width: 100%;
+  white-space: nowrap;
+}
+.city-table td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Column widths are based on these cells */
+.city-name {
+  width: 30%;
+}
+.city-district {
+  width: 20%;
+}
+.city-state {
+  width: 20%;
+}
+.city-action {
+  width: 30%;
+}

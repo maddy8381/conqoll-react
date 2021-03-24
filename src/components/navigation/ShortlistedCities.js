@@ -15,8 +15,9 @@ function ShortlistedCities({ citiesData, fetchCities, removeShortlistedCity }) {
 
     return (
         <div className="container">
-            <Table striped bordered hover size="sm">
-                <thead>
+            <br /><br />
+            <Table striped bordered hover size="sm" >
+                <thead style={{ backgroundColor: "#555957", color: "#FFFFFF" }}>
                     <tr>
                         <th>City</th>
                         <th>District</th>
@@ -31,7 +32,7 @@ function ShortlistedCities({ citiesData, fetchCities, removeShortlistedCity }) {
                             <td>{cityShortlisted.District}</td>
                             <td>{cityShortlisted.State}</td>
                             <td>
-                                <button className="btn btn-sm btn-outline-danger ml-4" onClick={() => handleShortlist(cityShortlisted.Id)}>
+                                <button className="btn btn-sm btn-danger" onClick={() => handleShortlist(cityShortlisted.Id)}>
                                     Remove
                                     </button>
                             </td>

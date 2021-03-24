@@ -12,6 +12,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import "../../index.css"
+import "../../main.css"
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -151,13 +152,13 @@ function AllCities({ citiesData, fetchCities, removeCity, shortlistCity, addCity
             <br /><br />
             <br /><br />
 
-            <Table striped bordered hover size="sm">
-                <thead>
+            <Table striped bordered hover size="sm" className="city-table">
+                <thead style={{ backgroundColor: "#555957", color: "#FFFFFF" }}>
                     <tr>
-                        <th>City</th>
-                        <th>District</th>
-                        <th>State</th>
-                        <th>Action</th>
+                        <th className="row-1 city-name">City</th>
+                        <th className="row-2 city-district">District</th>
+                        <th className="row-3 city-state">State</th>
+                        <th className="row-4 city-action">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -168,12 +169,12 @@ function AllCities({ citiesData, fetchCities, removeCity, shortlistCity, addCity
                                 <td>{city.District}</td>
                                 <td>{city.State}</td>
                                 <td>
-                                    <button className="btn btn-sm btn-outline-danger ml-4" onClick={() => handleShortlist(city.Id)}>
+                                    <button className="btn btn-sm btn-success" onClick={() => handleShortlist(city.Id)}>
                                         {
-                                            city.isShortlisted ? <li>Shortlisted</li> : <li>Shortlist</li>
+                                            city.isShortlisted ? <span>Shortlisted</span> : <span>Shortlist</span>
                                         }
-                                    </button>
-                                    <button className="btn btn-sm btn-outline-danger ml-4" onClick={() => deleteEventHandler(city.Id)}>
+                                    </button>{'          '}
+                                    <button className="btn btn-sm btn-danger" onClick={() => deleteEventHandler(city.Id)}>
                                         Delete
                                     </button>
                                 </td>
