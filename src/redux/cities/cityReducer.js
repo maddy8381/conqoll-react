@@ -1,4 +1,4 @@
-import { FETCH_CITIES, FETCH_DATA_REQUEST, FETCH_DATA_SUCCESS, FETCH_DATA_FAILURE, REMOVE_CITY, SHORTLIST_CITY, REMOVE_SHORTLISTED_CITY } from "./cityTypes"
+import { FETCH_CITIES, FETCH_DATA_REQUEST, FETCH_DATA_SUCCESS, FETCH_DATA_FAILURE, REMOVE_CITY, SHORTLIST_CITY, REMOVE_SHORTLISTED_CITY, ADD_CITY } from "./cityTypes"
 
 const initialState = {
     loading: false,
@@ -66,6 +66,9 @@ const reducer = (state = initialState, action) => {
                     city => city.Id !== action.payload
                 )
             };
+        case ADD_CITY:
+            state.cities.push(action.payload);
+            return state;
 
         default:
             return state;

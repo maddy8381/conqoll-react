@@ -1,4 +1,4 @@
-import { FETCH_CITIES, FETCH_DATA_FAILURE, FETCH_DATA_REQUEST, FETCH_DATA_SUCCESS, REMOVE_CITY, REMOVE_SHORTLISTED_CITY, SHORTLIST_CITY } from "./cityTypes"
+import { ADD_CITY, FETCH_CITIES, FETCH_DATA_FAILURE, FETCH_DATA_REQUEST, FETCH_DATA_SUCCESS, REMOVE_CITY, REMOVE_SHORTLISTED_CITY, SHORTLIST_CITY } from "./cityTypes"
 import axios from 'axios';
 
 export const fetchCitiesRequest = () => {
@@ -72,3 +72,10 @@ export const removeCity = (id) => {
         payload: id
     };
 };
+
+export const addCity = (obj) => {
+    return {
+        type: ADD_CITY,
+        payload: obj
+    }
+}
