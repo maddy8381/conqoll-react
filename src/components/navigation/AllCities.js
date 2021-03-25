@@ -21,7 +21,6 @@ import Select from '@material-ui/core/Select';
 import Snackbar from '@material-ui/core/Snackbar';
 import SaveIcon from '@material-ui/icons/Save';
 import AddIcon from '@material-ui/icons/Add';
-import Zoom from '@material-ui/core/Zoom';
 import Fab from '@material-ui/core/Fab';
 
 const styles = (theme) => ({
@@ -78,6 +77,7 @@ function AllCities({ citiesData, fetchCities, removeCity, shortlistCity, addCity
 
     const [open, setOpen] = useState(false);
     const [successState, setSuccessState] = useState(false);
+    const [filterStr, changeFilterStr] = useState('');
     const classes = useStyles();
 
     const [state, setState] = useState({
@@ -144,6 +144,17 @@ function AllCities({ citiesData, fetchCities, removeCity, shortlistCity, addCity
         <h2>{citiesData.error}</h2>
     ) : (
         <div className="container">
+
+            <br></br>
+            <div className="input-group mb-3">
+                <div className="input-group-prepend">
+                    <span className="input-group-text" id="filter">Filter</span>
+                </div>
+                <input type="text" className="form-control" placeholder="Enter text to filter..." aria-label="Filter"
+                    value={filterStr}
+                    onChange={e => changeFilterStr(e.target.value)}
+                />
+            </div>
             <br />
             <Fab variant="extended" color="secondary" aria-label="add" className={classes.margin} onClick={handleClickOpen} style={{ float: 'right' }}>
                 <AddIcon />
@@ -163,23 +174,29 @@ function AllCities({ citiesData, fetchCities, removeCity, shortlistCity, addCity
                 </thead>
                 <tbody>
                     {
-                        citiesData.cities.map(city => (
-                            <tr key={city.Id}>
-                                <td>{city.City}</td>
-                                <td>{city.District}</td>
-                                <td>{city.State}</td>
-                                <td>
-                                    <button className="btn btn-sm btn-success" onClick={() => handleShortlist(city.Id)}>
-                                        {
-                                            city.isShortlisted ? <span>Shortlisted</span> : <span>Shortlist</span>
-                                        }
-                                    </button>{'          '}
-                                    <button className="btn btn-sm btn-danger" onClick={() => deleteEventHandler(city.Id)}>
-                                        Delete
-                                    </button>
-                                </td>
-                            </tr>
-                        ))
+                        citiesData.cities.filter(
+                            function (city) {
+                                return city.City.includes(filterStr) ||
+                                    city.District.includes(filterStr) ||
+                                    city.State.includes(filterStr)
+                            })
+                            .map(city => (
+                                <tr key={city.Id}>
+                                    <td>{city.City}</td>
+                                    <td>{city.District}</td>
+                                    <td>{city.State}</td>
+                                    <td>
+                                        <button className="btn btn-sm btn-success" onClick={() => handleShortlist(city.Id)}>
+                                            {
+                                                city.isShortlisted ? <span>Shortlisted</span> : <span>Shortlist</span>
+                                            }
+                                        </button>{'          '}
+                                        <button className="btn btn-sm btn-danger" onClick={() => deleteEventHandler(city.Id)}>
+                                            Delete
+                                                        </button>
+                                    </td>
+                                </tr>
+                            ))
                     }
                 </tbody>
             </Table>
