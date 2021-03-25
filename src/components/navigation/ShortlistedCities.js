@@ -1,4 +1,6 @@
-import React, { useEffect } from 'react'
+
+import React,
+{ useEffect } from 'react'
 import { connect } from 'react-redux'
 import { fetchCities, removeShortlistedCity } from '../../redux'
 import { Table } from 'react-bootstrap'

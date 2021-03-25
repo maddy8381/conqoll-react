@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { fetchCities, removeCity, shortlistCity, addCity } from '../../redux'
@@ -193,7 +194,7 @@ function AllCities({ citiesData, fetchCities, removeCity, shortlistCity, addCity
                                         </button>{'          '}
                                         <button className="btn btn-sm btn-danger" onClick={() => deleteEventHandler(city.Id)}>
                                             Delete
-                                                        </button>
+                                        </button>
                                     </td>
                                 </tr>
                             ))
